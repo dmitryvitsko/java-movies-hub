@@ -80,6 +80,12 @@ class MoviesHandler extends BaseHttpHandler {
             }
         } else if (method.equalsIgnoreCase("POST")) {
 
+            if (!ex.getRequestURI().getPath().equals("/movies")) {
+                String error = gson.toJson(new ErrorResponse("Неверный путь"));
+                sendJson(ex, 404, error);
+                return;
+            }
+
             String contentType = ex.getRequestHeaders().getFirst("Content-Type");
             if (contentType == null || !contentType.contains("application/json")) {
                 String error = gson.toJson(new ErrorResponse("Ожидается application/json"));
@@ -95,6 +101,12 @@ class MoviesHandler extends BaseHttpHandler {
                 movie = gson.fromJson(bodyString, Movie.class);
             } catch (JsonSyntaxException e) {
                 String error = gson.toJson(new ErrorResponse("Некорректный формат JSON"));
+                sendJson(ex, 400, error);
+                return;
+            }
+
+            if (movie == null) {
+                String error = gson.toJson(new ErrorResponse("Некорректный JSON"));
                 sendJson(ex, 400, error);
                 return;
             }
