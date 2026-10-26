@@ -1,0 +1,40 @@
+POST http://localhost:8080/movies
+Content-Type: application/json
+
+{
+  "title": "Матрица",
+  "year": 1999
+}
+
+###
+POST http://localhost:8080/movies
+Content-Type: application/json
+
+{
+  "title": "Бойцовский клуб",
+  "year": 1999
+}
+
+###
+POST http://localhost:8080/movies
+Content-Type: application/json
+
+{
+  "title": "Начало",
+  "year": 2010
+}
+
+###
+GET http://localhost:8080/movies
+
+###
+GET http://localhost:8080/movies?year=1999
+
+###
+DELETE http://localhost:8080/movies/2
+
+###
+GET http://localhost:8080/movies/1
+
+###
+GET http://localhost:8080/movies
